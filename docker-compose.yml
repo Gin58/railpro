@@ -1,0 +1,36 @@
+#
+# railspro
+#
+# ports
+#   mysql : 3317
+#   web   : 3017
+#
+version: '3.4'
+services:
+  db:
+    container_name: railpro_db
+    build:
+      context : .
+      dockerfile: Dockerfile.db
+    volumes:
+      - ./db/mysql/volumes:/var/lib/mysql:cached
+    env_file: .env
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - 3317:3306
+  web:
+    container_name: railpro_web
+    build:
+      context : .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/railpro:cached
+    env_file: .env
+    command: bash -c "yarn install && rm -rf /railpro/tmp/pids/server.pid && bundle exec rake db:create && bundle exec ridgepole -c config/database.yml -E development --apply -f db/Schemafile && bundle exec rails s -p 3017 -b '0.0.0.0'"
+    ports:
+      - 3017:3017
+    depends_on:
+      - db
+    privileged: true
+    stdin_open: true
+    tty: true
