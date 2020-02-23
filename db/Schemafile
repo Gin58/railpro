@@ -1,2 +1,3 @@
 # docker-compose run --rm web bundle exec ridgepole -c config/database.yml -E development --apply -f db/Schemafile
 require 'schemas/admins.schema'
+require 'schemas/users.schema'
