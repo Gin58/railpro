@@ -86,3 +86,5 @@ gem 'fog-aws'
 gem 'activerecord-import'
 gem 'rbtrace'
 gem 'stackprof', require: false
+
+gem 'admins', path: 'admins'
