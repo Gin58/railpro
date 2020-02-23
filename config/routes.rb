@@ -6,4 +6,11 @@ Rails.application.routes.draw do
       registrations: 'users/registrations'
   }
   get '/home', to: 'home#index'
+
+  mount Admins::Engine, at: '/admins', as: 'admin'
+  devise_for :admins, controllers: {
+      sessions:      'admins/sessions',
+      passwords:     'admins/passwords',
+      registrations: 'admins/registrations'
+  }
 end
