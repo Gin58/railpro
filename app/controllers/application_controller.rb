@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  protect_from_forgery with: :exception
   before_action :authenticate_user!
   helper Admins::ApplicationHelper
   #
@@ -34,7 +35,7 @@ class ApplicationController < ActionController::Base
     when User
       new_user_session_path
     else # Admin
-      new_admin_session_path
+      main_app.new_admin_session_path
     end
   end
 end

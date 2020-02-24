@@ -36,6 +36,9 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  # devise設定
+  config.action_controller.forgery_protection_origin_check = false
   if pro
     # TODO:
     config.action_mailer.default_url_options = { host: '' }
